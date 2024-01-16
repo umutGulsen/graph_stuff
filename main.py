@@ -1,5 +1,3 @@
-# This is a sample Python script.
-
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 from graph_declaration import declare_graph
@@ -30,16 +28,15 @@ def main():
     # g.check_adjacency_via_matrix(4, 7)
     # print(g.nodenames)
 
-    #g.root_tree(g.node_dict["London"])
-    #g.leaf_sum(draw=True)
+    # g.root_tree(g.node_dict["London"])
+    # g.leaf_sum(draw=True)
 
-    #g.tree_height()
-
+    # g.tree_height()
 
     g.assign_degree_centrality(draw=1)
     g.find_center()
     print("All tasks completed.")
 
+
 if __name__ == '__main__':
     main()
-

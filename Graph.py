@@ -22,7 +22,6 @@ class Graph:
         self.tree = tree
         self.source_node = None
 
-
     def detect_source_node(self):
         for n in self.nodes:
             if n.source:
@@ -43,7 +42,7 @@ class Graph:
             if arc.type_ != "directed":
                 plt.plot([arc.from_.x, arc.to.x], [arc.from_.y, arc.to.y], c="blue")
             else:
-                plt.arrow(arc.from_.x, arc.from_.y, arc.to.x-arc.from_.x, arc.to.y-arc.from_.y,
+                plt.arrow(arc.from_.x, arc.from_.y, arc.to.x - arc.from_.x, arc.to.y - arc.from_.y,
                           head_width=.15, head_starts_at_zero=False, length_includes_head=True)
         plt.axis("off")
         plt.show()
@@ -72,7 +71,7 @@ class Graph:
         visited.append(at)
         not_visited.remove(at)
 
-        #print(f"Start at {at.name}")
+        # print(f"Start at {at.name}")
         path.append(at)
         while len(not_visited) > 0:
             at.label = label
@@ -85,22 +84,22 @@ class Graph:
                 at.label = label
                 visited.append(at)
                 not_visited.remove(at)
-                #print(f"Went to {at.name}")
+                # print(f"Went to {at.name}")
                 path.append(at)
             else:
                 path.remove(at)
                 if len(path) > 0:
                     at = path[-1]
-                    #print(f"Back to {at.name}")
+                    # print(f"Back to {at.name}")
                 else:
-                    #print(f"Looking for more components...")
+                    # print(f"Looking for more components...")
                     label += 1
-                    if len(not_visited)>0:
+                    if len(not_visited) > 0:
                         at = not_visited[0]
-                        #print(f"Start anew from {at.name}")
+                        # print(f"Start anew from {at.name}")
                         visited.append(at)
                         not_visited.remove(at)
-                        at.label=label
+                        at.label = label
                     else:
                         return 0
         print("Finished Labeling")
@@ -139,7 +138,7 @@ class Graph:
                 next_node = parent_dict[next_node]
             path.append(start.name)
             print(f"Found {end.name} in {step} steps.")
-            print(f"Path: {[path[len(path)-1-i] for i in range(len(path))]}")
+            print(f"Path: {[path[len(path) - 1 - i] for i in range(len(path))]}")
 
             if draw:
                 figure = plt.figure(num=None, figsize=(8, 6), dpi=80)
@@ -208,13 +207,13 @@ class Graph:
                     f, s = self.shortest_path_bfs(ni, nj, draw=False)
                     if f:
                         distances.append(s)
-            ni.closeness_cent = (label_count[ni.label]-1) / sum(distances)
+            ni.closeness_cent = (label_count[ni.label] - 1) / sum(distances)
 
         if draw:
             figure = plt.figure(num=None, figsize=(8, 6), dpi=80)
             for node in self.nodes:
-                plt.scatter(node.x, node.y, s=np.max([50,300 + 800*node.closeness_cent]), c="gray", alpha=.8)
-                plt.annotate(f"{node.name} {round(node.closeness_cent,2)}", (node.x, node.y))
+                plt.scatter(node.x, node.y, s=np.max([50, 300 + 800 * node.closeness_cent]), c="gray", alpha=.8)
+                plt.annotate(f"{node.name} {round(node.closeness_cent, 2)}", (node.x, node.y))
             for arc in self.arcs:
                 plt.plot([arc.from_.x, arc.to.x], [arc.from_.y, arc.to.y], c="blue")
             plt.axis("off")
@@ -229,16 +228,16 @@ class Graph:
             for neighbor in self.adj_list[at]:
                 if neighbor in self.adj_list.keys():
                     path.append(neighbor)
-                    #print(f"Found {neighbor.name}")
+                    # print(f"Found {neighbor.name}")
                 else:
-                    #print("ended", neighbor.name)
+                    # print("ended", neighbor.name)
                     sum += neighbor.pop
         print(sum)
         if draw:
             figure = plt.figure(num=None, figsize=(8, 6), dpi=80)
             for node in self.nodes:
                 plt.scatter(node.x, node.y, s=500, c="gray")
-                plt.annotate(f"{node.name} {round(node.pop,2)}", (node.x, node.y))
+                plt.annotate(f"{node.name} {round(node.pop, 2)}", (node.x, node.y))
             for arc in self.arcs:
                 if not self.tree:
                     plt.plot([arc.from_.x, arc.to.x], [arc.from_.y, arc.to.y], c="blue")
@@ -250,7 +249,7 @@ class Graph:
 
     def height(self, node):
         if node in self.adj_list.keys():
-            return 1+np.max([self.height(neig) for neig in self.adj_list[node]])
+            return 1 + np.max([self.height(neig) for neig in self.adj_list[node]])
         else:
             return 0
 
@@ -276,15 +275,15 @@ class Graph:
                 arc.from_ = old_to
                 arc.to = old_from
         for n in self.nodes:
-            n.neighbours=[]
-        self.adj_list={}
+            n.neighbours = []
+        self.adj_list = {}
         self.create_adj_list()
         self.draw_graph()
 
     def find_center(self):
 
-        sub_nodes=[]
-        sub_arcs=[]
+        sub_nodes = []
+        sub_arcs = []
         for n in self.nodes:
             if n.degree_cent > 1:
                 sub_nodes.append(n)
@@ -293,8 +292,8 @@ class Graph:
                 sub_arcs.append(a)
         if len(sub_nodes) > 2:
             sub_graph = Graph(sub_nodes, sub_arcs, tree=True, sub=True)
-            #time.sleep(1)
+            # time.sleep(1)
             sub_graph.assign_degree_centrality(draw=True)
             sub_graph.find_center()
         else:
-            print(f"Center found: {[node.name for node in sub_nodes] }")
+            print(f"Center found: {[node.name for node in sub_nodes]}")

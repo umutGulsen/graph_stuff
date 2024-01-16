@@ -1,4 +1,6 @@
 import numpy as np
+
+
 class Node:
     def __init__(self, name=None, x=None, y=None, source=False):
         self.name = "node" if name is None else name
@@ -9,6 +11,6 @@ class Node:
         self.index = -1
         self.degree_cent = 0
         self.source = source
-        self.pop = int(np.random.random()*10)
+        self.pop = int(np.random.random() * 10)
         self.parent = None
         self.children = []

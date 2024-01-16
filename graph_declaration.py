@@ -112,7 +112,7 @@ def declare_graph(show, tree=False, rooted=True):
             Arc(name="a18", from_=node_dict["Paris"], to=node_dict["Amsterdam"], type_="directed"),
         ]
 
-        g = Graph(nodes, arcs,tree=True)
+        g = Graph(nodes, arcs, tree=True)
         if show:
             g.draw_graph()
         g.set_dist()
@@ -139,12 +139,12 @@ def declare_graph(show, tree=False, rooted=True):
             "Baku": Node(name="Baku", x=6.8, y=2.2),
             "Copenhagen": Node(name="Copenhagen", x=3.5, y=4.8),
             "Bordeaux": Node(name="Bordeaux", x=1.5, y=2.3)
-            }
+        }
 
         nodes = [node_dict[key] for key in node_dict.keys()]
 
         arcs = [
-            Arc(name="a1", from_=node_dict["Paris"], to=node_dict["London"] ),
+            Arc(name="a1", from_=node_dict["Paris"], to=node_dict["London"]),
             Arc(name="a2", from_=node_dict["Madrid"], to=node_dict["Bordeaux"]),
             Arc(name="a3", from_=node_dict["Berlin"], to=node_dict["Paris"]),
             Arc(name="a4", from_=node_dict["Vienna"], to=node_dict["Berlin"]),
